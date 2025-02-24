@@ -1927,6 +1927,10 @@ concurrent modifications on the same file or data corruption may occur.
 <!-- YAML
 added: v0.11.15
 changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/55862
+    description: The constants `fs.F_OK`, `fs.R_OK`, `fs.W_OK` and `fs.X_OK`
+                 which were present directly on `fs` are removed.
   - version: v20.8.0
     pr-url: https://github.com/nodejs/node/pull/49683
     description: The constants `fs.F_OK`, `fs.R_OK`, `fs.W_OK` and `fs.X_OK`
@@ -4767,6 +4771,12 @@ unavailable in some situations.
 
 On Windows, no events will be emitted if the watched directory is moved or
 renamed. An `EPERM` error is reported when the watched directory is deleted.
+
+The `fs.watch` API does not provide any protection with respect
+to malicious actions on the file system. For example, on Windows it is
+implemented by monitoring changes in a directory versus specific files. This
+allows substitution of a file and fs reporting changes on the new file
+with the same filename.
 
 ##### Availability
 
